@@ -1,0 +1,8 @@
+auto-save-list/
+elpa/
+eshell/
+projectile-bookmarks.eld
+transient/
+*~
+README.el
+forge-database.sqlite

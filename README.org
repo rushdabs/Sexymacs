@@ -1,0 +1,201 @@
+#+TITLE: Sexymacs
+#+AUTHOR: rushi
+
+* Rice 
+🍚 is what makes Sexymacs sexy. Here are the ingredients:
+
+** The Doom modeline
+Everything else sucks.
+
+#+BEGIN_SRC emacs-lisp
+(use-package doom-modeline
+  :init
+  (doom-modeline-mode 1)
+  :custom
+  (doom-modeline-height 35))
+#+END_SRC
+
+** Doom themes
+Yes, this is the exact System Crafters setup. But I'll upgrade in the future.
+
+#+BEGIN_SRC emacs-lisp
+(use-package doom-themes
+  :config
+  (load-theme 'doom-dracula t))
+#+END_SRC
+
+** Font 
+Fira Code is obviously the best.
+
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'default nil :font "Fira Code" :height 130)
+#+END_SRC
+
+* Useful settings  
+Adding some stuff to improve my workflow.
+** Removing noise  
+Disabling some bullshit Emacs enables by default.
+
+#+BEGIN_SRC emacs-lisp 
+(setq inhibit-startup-message t) 
+(scroll-bar-mode -1) 
+(menu-bar-mode -1) 
+(tool-bar-mode -1) 
+(tooltip-mode -1) 
+#+END_SRC 
+
+** Using the visible bell  
+The bell is really annoying but the visual bell can be useful. 
+
+#+BEGIN_SRC emacs-lisp 
+(setq visible-bell t) 
+#+END_SRC 
+
+** Enabling line numbers 
+It is very clear that you cannot use a text editor (operating system in this case) without line numbers. 
+And relative line numbers are a must. 
+
+#+BEGIN_SRC emacs-lisp 
+(column-number-mode t) 
+(display-line-numbers-mode t) 
+(setq display-line-numbers-type 'relative) 
+(global-display-line-numbers-mode t) 
+#+END_SRC 
+
+** Disabling line numbers on some buffers 
+Obviously, you wouldn't want your shell window to be numbered. 
+
+#+BEGIN_SRC emacs-lisp 
+(dolist (mode '(term-mode-hook 
+                shell-mode-hook 
+                eshell-mode-hook)) 
+(add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+END_SRC
+
+* General tools
+** Ivy and Counsel
+Ivy gives some really cool autocomplete and fuzzy searching features.
+Swiper replaces I-search with better fuzzy searching.
+And counsel replaces some emacs builtins with cooler stuff I don't remember.
+
+#+BEGIN_SRC emacs-lisp
+(use-package ivy
+  :diminish
+  :bind (("C-j" . ivy-next-line-or-history)
+         ("C-k" . ivy-previous-line-or-history)
+         ("C-s" . swiper))
+  :config
+  (ivy-mode 1))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+	     ("C-x b" . counsel-ibuffer)
+	     ("C-x f" . counsel-find-file))
+  :config
+  (setq ivy-initial-inputs-alist nil))
+#+END_SRC
+
+*** Make Ivy better
+Ivy-rich makes ivy better. Didn't customize too much but still does the job.
+
+#+BEGIN_SRC emacs-lisp
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+#+END_SRC
+** Evil Mode
+Obviously, you can't live with Emacs' normal keybinds without severely damaging your fingers.
+So there's evil-mode, a sane way to use a text editor.
+
+#+BEGIN_SRC emacs-lisp
+(use-package evil
+  :diminish
+  :config
+  (evil-mode 1))
+#+END_SRC
+
+** Which-key 
+I can't remember all the keybinds so I use this package.
+
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :init
+  (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0))
+#+END_SRC
+
+** Helpful
+Replaces the default Emacs help buffer with a much better one.
+
+#+BEGIN_SRC emacs-lisp
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+#+END_SRC
+
+** Rainbow Delimiters
+I don't want to count the number of opening and closing brackets and see if they're placed properly.
+This package colors the opening and closing brackets for identification.
+
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+#+END_SRC
+
+* Coding
+** Completion
+*** Frontend: Company
+Company is probably the best completion frontend. Everyone uses it.
+
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :init
+  (company-mode 1))
+#+END_SRC
+
+** Checking 
+*** Flycheck
+Pretty good syntax and warning checking with zero config.
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :init
+  (global-flycheck-mode))
+#+END_SRC 
+
+* Git Integration 
+I just use magit. It's the best. 
+Except it doesn't have the git rm function. I hope they add it.
+
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+#+END_SRC
+
+* Org mode
+Org mode is really powerful, I love it.
+
+#+BEGIN_SRC emacs-lisp
+(use-package org
+  :config
+  (add-hook 'org-mode-hook 'org-indent-mode))
+#+END_SRC
+
+** Org bullets
+Too many asterisks suck. Bullets here to replace them.
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode))
+#+END_SRC
+ 
