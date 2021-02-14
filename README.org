@@ -152,16 +152,56 @@ This package colors the opening and closing brackets for identification.
 
 * Coding
 ** Completion
-*** Frontend: Company
 Company is probably the best completion frontend. Everyone uses it.
 
 #+BEGIN_SRC emacs-lisp
-(use-package company
-  :init
-  (company-mode 1))
+  (use-package company
+    :hook (prog-mode . company-mode)
+    :config
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 1)
+    (company-tng-configure-default))
 #+END_SRC
 
-** Checking 
+** lsp-mode
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :hook (
+           (c-mode . lsp)
+           (c++-mode . lsp)
+           (lsp-mode . lsp-enable-which-key-integration))
+    :commands lsp)
+#+END_SRC
+
+*** lsp-ui
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-ui
+    :custom
+    (lsp-ui-doc-delay 0.75)
+    (lsp-ui-doc-max-height 200)
+    :after lsp-mode)
+#+END_SRC
+
+*** lsp-ivy
+
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-ivy
+  :after (ivy lsp-mode))
+#+END_SRC
+
+*** company-lsp
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-lsp
+    :disabled
+    :custom (company-lsp-enable-snippet t)
+    :after (company lsp-mode))
+#+END_SRC
+
+** Checking
 *** Flycheck
 Pretty good syntax and warning checking with zero config.
 
@@ -170,6 +210,29 @@ Pretty good syntax and warning checking with zero config.
   :init
   (global-flycheck-mode))
 #+END_SRC 
+
+** Yasnippet
+Not a big fan but it's a dependency. Might as well have it around.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :config (yas-global-mode))
+#+END_SRC 
+
+** Projectile 
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  (when (file-directory-p "~/Coding/Projects")
+    (setq projectile-project-search-path '("~/Coding/Projects")))
+  (setq projectile-switch-project-action #'projectile-dired))
+#+END_SRC
 
 * Git Integration 
 I just use magit. It's the best. 
