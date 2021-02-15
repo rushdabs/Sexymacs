@@ -163,6 +163,15 @@ Company is probably the best completion frontend. Everyone uses it.
     (company-tng-configure-default))
 #+END_SRC
 
+*** nasm-mode
+I code in x86 asm as well so this is a good package.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package nasm-mode
+    :ensure t
+    :config nasm-mode)
+#+END_SRC
+
 ** lsp-mode
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
