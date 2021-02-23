@@ -161,14 +161,14 @@ Company is probably the best completion frontend. Everyone uses it.
 
 #+BEGIN_SRC emacs-lisp
   (use-package company
-    :hook (prog-mode . company-mode)
     :config
+    (global-company-mode)
     (setq company-idle-delay 0)
     (setq company-minimum-prefix-length 1)
     (company-tng-configure-default))
 #+END_SRC
 
-*** nasm-mode
+** nasm-mode
 I code in x86 asm as well so this is a good package.
 
 #+BEGIN_SRC emacs-lisp
