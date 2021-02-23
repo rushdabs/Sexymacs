@@ -168,16 +168,6 @@ Company is probably the best completion frontend. Everyone uses it.
     (company-tng-configure-default))
 #+END_SRC
 
-** nasm-mode
-I code in x86 asm as well so this is a good package.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package nasm-mode
-    :ensure t
-    :config
-    (add-hook 'asm-mode-hook 'nasm-mode))
-#+END_SRC
-
 ** lsp-mode
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
@@ -247,6 +237,14 @@ Not a big fan but it's a dependency. Might as well have it around.
   (when (file-directory-p "~/Coding/Projects")
     (setq projectile-project-search-path '("~/Coding/Projects")))
   (setq projectile-switch-project-action #'projectile-dired))
+#+END_SRC
+
+** NeoTree
+Nice project tree
+
+#+BEGIN_SRC emacs-lisp
+  (use-package neotree
+    :bind (("C-n" . neotree-toggle)))
 #+END_SRC
 
 * Git Integration 
