@@ -72,6 +72,11 @@ Obviously, you wouldn't want your shell window to be numbered.
 (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+END_SRC
 
+** Refresh dired automatically
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'dired-mode-hook 'auto-revert-mode)
+#+END_SRC
+
 * General tools
 ** Ivy and Counsel
 Ivy gives some really cool autocomplete and fuzzy searching features.
@@ -169,7 +174,8 @@ I code in x86 asm as well so this is a good package.
 #+BEGIN_SRC emacs-lisp
   (use-package nasm-mode
     :ensure t
-    :config nasm-mode)
+    :config
+    (add-hook 'asm-mode-hook 'nasm-mode))
 #+END_SRC
 
 ** lsp-mode
