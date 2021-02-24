@@ -77,6 +77,20 @@ Obviously, you wouldn't want your shell window to be numbered.
   (add-hook 'dired-mode-hook 'auto-revert-mode)
 #+END_SRC
 
+** Disable yes-or-no questions
+I just y and n ffs.
+
+#+BEGIN_SRC emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+** Disabling backup files
+I hate 'em.
+
+#+BEGIN_SRC emacs-lisp
+(setq make-backup-files nil)
+#+END_SRC
+
 * General tools
 ** Ivy and Counsel
 Ivy gives some really cool autocomplete and fuzzy searching features.
@@ -234,8 +248,8 @@ Not a big fan but it's a dependency. Might as well have it around.
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
-  (when (file-directory-p "~/Coding/Projects")
-    (setq projectile-project-search-path '("~/Coding/Projects")))
+  (when (file-directory-p "~/Coding/")
+    (setq projectile-project-search-path '("~/Coding/")))
   (setq projectile-switch-project-action #'projectile-dired))
 #+END_SRC
 
