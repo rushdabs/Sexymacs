@@ -91,6 +91,13 @@ I hate 'em.
 (setq make-backup-files nil)
 #+END_SRC
 
+** Open terminal from Emacs
+I'm new to this editor and the term modes are confusing. I'm just gonna open an external terminal.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-RET") (kbd "M-! st RET"))
+#+END_SRC
+
 * General tools
 ** Ivy and Counsel
 Ivy gives some really cool autocomplete and fuzzy searching features.
@@ -127,10 +134,10 @@ Obviously, you can't live with Emacs' normal keybinds without severely damaging 
 So there's evil-mode, a sane way to use a text editor.
 
 #+BEGIN_SRC emacs-lisp
-(use-package evil
-  :diminish
-  :config
-  (evil-mode 1))
+  (use-package evil
+    :diminish
+    :config
+    (evil-mode 1))
 #+END_SRC
 
 ** Which-key 
