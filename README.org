@@ -176,6 +176,13 @@ This package colors the opening and closing brackets for identification.
   :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
 
+** Transpose frame
+Arranges windows side-by-side. Useful while debugging.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package transpose-frame)
+#+END_SRC
+
 * Coding
 ** Completion
 Company is probably the best completion frontend. Everyone uses it.
